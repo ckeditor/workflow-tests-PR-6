@@ -2,13 +2,7 @@ name: Close stale issues and pull requests
 
 on:
   schedule:
-    - cron: "0 9 * * *"
-  workflow_dispatch:
-    inputs:
-      config:
-        description: 'Config'
-        required: false
-        default: ''
+  - cron: "0 9 * * *"
 
 jobs:
   stale:
