@@ -57,7 +57,7 @@ jobs:
         if: env.SHOULD_CANCEL == 1
         # https://github.com/marketplace/actions/cancel-this-build
         uses: andymckay/cancel-action@0.2
-        
+
       - name: Wait for cancellation
         if: env.SHOULD_CANCEL == 1
         # https://github.com/marketplace/actions/wait-sleep
