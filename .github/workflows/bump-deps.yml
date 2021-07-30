@@ -27,6 +27,7 @@ jobs:
         run: |
           # Add bump property set on 'true'
           CONFIG=$(echo '${{ env.CONFIG }}' | jq --arg bump true)
+          echo '${{env.CONFIG}}'
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
