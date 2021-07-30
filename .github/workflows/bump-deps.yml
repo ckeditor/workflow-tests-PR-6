@@ -21,17 +21,17 @@ jobs:
           elif [[ -f "./.github/workflows-config.json" ]]; then
             CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
           fi
-          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
           echo "Workflow config: $CONFIG"
       - name: Merge configs
         run: |
           # Add bump property set on 'true'
           CONFIG=$(echo $CONFIG | jq '. += {bump: "yes"}')
           echo "Workflow config after merge: $CONFIG"
+          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: ${{ CONFIG }}
+          inputs: ${{ env.CONFIG }}
           # '{ "config": "{\"targetBranch\":\"master\"}" }'
