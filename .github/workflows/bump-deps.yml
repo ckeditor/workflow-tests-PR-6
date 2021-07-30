@@ -26,6 +26,7 @@ jobs:
       - name: Merge configs
         run: |
           # Add bump property set on 'true'
+          echo "CFG before merge! $CONFIG"
           CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {bump: "yes"}')
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
           echo "Workflow config after merge: $CONFIG"
