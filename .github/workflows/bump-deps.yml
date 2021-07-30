@@ -21,13 +21,12 @@ jobs:
           elif [[ -f "./.github/workflows-config.json" ]]; then
             CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
           fi
-          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
-          echo "Workflow config: $CONFIG"
       - name: Merge configs
         run: |
           # Add bump property set on 'true'
-          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {bump: "yes"}')
-          echo '${{env.CONFIG}}'
+          CONFIG=$(echo $CONFIG | jq '. += {bump: "yes"}')
+          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+          echo "Workflow config: $CONFIG"
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
