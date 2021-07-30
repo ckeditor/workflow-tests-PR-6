@@ -21,6 +21,7 @@ jobs:
           elif [[ -f "./.github/workflows-config.json" ]]; then
             CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
           fi
+          CONFIG='sd'
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
           echo "Workflow config: $CONFIG"
       - name: Merge configs
