@@ -33,5 +33,5 @@ jobs:
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: echo $CONFIG
+          inputs: $CONFIG
           # '{ "config": "{\"targetBranch\":\"master\"}" }'
