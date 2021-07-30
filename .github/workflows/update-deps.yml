@@ -50,6 +50,7 @@ jobs:
             echo "Expected 'GH_BOT_EMAIL' secret variable to be set."
             exit 1
           fi
+          echo '${{env.CONFIG}}'
           BRANCH_TARGET=$(echo '${{ env.CONFIG }}' | jq -r ".targetBranch")
           if [[ -z "$BRANCH_TARGET" || "$BRANCH_TARGET" == "null" ]]; then
             # Since 'Fetch changes' step fetches default branch, we just get branch name (which will be default one).
