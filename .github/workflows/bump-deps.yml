@@ -17,4 +17,4 @@ jobs:
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: "{ config: { cke: 4, targetBranch: master } }"
+          inputs: '{ config: { "cke": "4", "targetBranch": "master" } }'
