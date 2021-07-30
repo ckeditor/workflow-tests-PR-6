@@ -8,10 +8,25 @@ on:
         description: 'Config'
         required: false
         default: ''
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - name: Read config
+        run: |
+          CONFIG='{}'
+          if [[ ! -z '${{ github.event.inputs.config }}' ]]; then
+            CONFIG='${{ github.event.inputs.config }}'
+          elif [[ -f "./.github/workflows-config.json" ]]; then
+            CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
+          fi
+          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+          echo "Workflow config: $CONFIG"
+      - name: Merge configs
+        run: |
+          # Add bump property set on 'true'
+          CONFIG=$(echo '${{ env.CONFIG }}' | jq -arg bump true)
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
