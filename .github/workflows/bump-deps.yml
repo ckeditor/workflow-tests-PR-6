@@ -1,5 +1,3 @@
-name: Update NPM dependencies
-
 on:
   schedule:
     - cron: "0 0 1 * *"
@@ -9,10 +7,13 @@ on:
         description: 'Config'
         required: false
         default: ''
-        
-name: Invoke workflow with inputs
-  uses: benc-uk/workflow-dispatch@v1
-  with:
-    workflow: Update NPM dependencies
-    token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-    inputs: '{ "bump": "true" }'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke workflow with inputs
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Update NPM dependencies
+          token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
+          inputs: '{ "bump": "true" }'
