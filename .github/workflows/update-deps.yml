@@ -56,7 +56,7 @@ jobs:
             BRANCH_TARGET=$(git rev-parse --abbrev-ref HEAD)
           fi
           echo "BRANCH_TARGET=$BRANCH_TARGET" >> $GITHUB_ENV
-          echo "github.event.schedule"
+          echo "::debug::${{github.event.schedule}}"
 
       - name: Check if update branch already exists
         run: |
