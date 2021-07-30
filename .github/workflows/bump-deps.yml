@@ -26,7 +26,7 @@ jobs:
       - name: Merge configs
         run: |
           # Add bump property set on 'true'
-          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {bump: "yes"}'    
+          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {bump: "yes"}')
           echo '${{env.CONFIG}}'
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
