@@ -42,6 +42,7 @@ jobs:
 
       - name: Check env variables
         run: |
+          echo "::debug::cke-test"
           if [[ -z "${{ secrets.GH_BOT_USERNAME }}" ]]; then
             echo "Expected 'GH_BOT_USERNAME' secret variable to be set."
             exit 1
