@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "core-js": "^3.13.0",
-    "eslint": "^7.27.0"
+    "core-js": "^2.0.0",
+    "eslint": "^5.0.0"
   },
   "dependencies": {
-    "chalk": "^4.1.1"
+    "chalk": "^3.0.0"
   }
 }
