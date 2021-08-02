@@ -1,0 +1,6 @@
+{
+  "setupWorkflows": {
+    "pushAsPullRequest": true,
+    "bump": true
+  }
+}
