@@ -60,7 +60,9 @@ jobs:
           echo "BRANCH_TARGET=$BRANCH_TARGET" >> $GITHUB_ENV
 
           SHOULD_BUMP=$(echo '${{ env.CONFIG }}' | jq -r ".bump")
+          echo "bump:"
           echo "$SHOULD_BUMP"
+
           if [[ "$SHOULD_BUMP" == "true" ]]; then
             echo "DEPS_BUMP_METHOD=npm-check" >> $GITHUB_ENV
           else
