@@ -50,28 +50,22 @@ jobs:
             echo "Expected 'GH_BOT_EMAIL' secret variable to be set."
             exit 1
           fi
-          echo 'cfg is'
-          echo '${{env.CONFIG}}'
           BRANCH_TARGET=$(echo '${{ env.CONFIG }}' | jq -r ".targetBranch")
           if [[ -z "$BRANCH_TARGET" || "$BRANCH_TARGET" == "null" ]]; then
             # Since 'Fetch changes' step fetches default branch, we just get branch name (which will be default one).
             BRANCH_TARGET=$(git rev-parse --abbrev-ref HEAD)
           fi
           echo "BRANCH_TARGET=$BRANCH_TARGET" >> $GITHUB_ENV
+
           SHOULD_BUMP=$(echo '${{ env.CONFIG }}' | jq -r ".bump")
           if [[ "$SHOULD_BUMP" == "true" ]]; then
             echo "DEPS_BUMP_METHOD=npm-check" >> $GITHUB_ENV
           else
             echo "DEPS_BUMP_METHOD=npm_update" >> $GITHUB_ENV
           fi
-          
-          
 
       - name: Check if update branch already exists
         run: |
-          echo "deps bump method is:"
-          echo "${{ env.DEPS_BUMP_METHOD}}"
-          
           echo "BRANCH_UPDATE=deps-${{ env.DEPS_BUMP_METHOD}}_${{ env.BRANCH_TARGET }}_${{ matrix.deps }}" >> $GITHUB_ENV
           if [[ $(git ls-remote --heads | grep deps-update_${{ env.BRANCH_TARGET }}_${{ matrix.deps }} | wc -c) -ne 0 ]]; then
             echo "BRANCH_UPDATE=0" >> $GITHUB_ENV
