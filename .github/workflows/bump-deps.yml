@@ -26,10 +26,11 @@ jobs:
       - name: Merge configs
         run: |
           # Add bump property set on 'true'
-          CONFIG=$(echo '${{ env.CONFIG }}' | jq --arg bump true)
+          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {\"bump\"": \"yes\"}')
+          echo "${{ CONFIG }}"
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: ${{ env.CONFIG }}
+          inputs: ${{ CONFIG }}
