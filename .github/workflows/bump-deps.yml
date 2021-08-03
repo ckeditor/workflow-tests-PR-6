@@ -32,4 +32,4 @@ jobs:
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: '{ "config": "{\"bump\":\"true\"}" }'
+          inputs: '{ "config": "${{env.CONFIG}}" }'
