@@ -24,7 +24,7 @@ jobs:
           echo "Workflow config: $CONFIG"
       - name: Merge configs
         run: |
-          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {bump: \"yes\"}')
+          CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {"bump": "yes"}')
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
           echo "${{ env.CONFIG }}"
       - name: Invoke workflow with inputs
