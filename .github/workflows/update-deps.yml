@@ -50,6 +50,7 @@ jobs:
             echo "Expected 'GH_BOT_EMAIL' secret variable to be set."
             exit 1
           fi
+          echo 'cfg is'
           echo '${{env.CONFIG}}'
           BRANCH_TARGET=$(echo '${{ env.CONFIG }}' | jq -r ".targetBranch")
           if [[ -z "$BRANCH_TARGET" || "$BRANCH_TARGET" == "null" ]]; then
@@ -63,6 +64,9 @@ jobs:
           else
             echo "DEPS_BUMP_METHOD=npm_update" >> $GITHUB_ENV
           fi
+          
+          echo "deps bump method is:"
+          echo "$DEPS_BUMP_METHOD"
 
       - name: Check if update branch already exists
         run: |
