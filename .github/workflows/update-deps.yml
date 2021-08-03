@@ -32,9 +32,11 @@ jobs:
       - name: Read config
         run: |
           CONFIG='{}'
-          if [[ ! -z '${{ github.event.inputs.config }}' ]]; then
+           if [[ ! -z '${{ github.event.inputs.config }}' ]]; then
+            echo "there is input cfg"
             CONFIG='${{ github.event.inputs.config }}'
           elif [[ -f "./.github/workflows-config.json" ]]; then
+            echo "there is json"
             CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
           fi
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
