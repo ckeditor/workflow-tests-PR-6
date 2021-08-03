@@ -27,9 +27,9 @@ jobs:
         run: |
           CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {"bump": "true"}')
           echo "${CONFIG}"
-          INPUT_1='{ "config": "'
+          INPUT_1='{ \"config\": \"'
           INPUT_2=$CONFIG
-          INPUT_3='"}'
+          INPUT_3='\"}'
           INPUT_ALL="${INPUT_1} ${INPUT_2} ${INPUT_3}"
           echo "input all below: "
           echo "${INPUT_ALL}"
