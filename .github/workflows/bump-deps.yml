@@ -26,6 +26,7 @@ jobs:
         run: |
           CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {"bump": "true"}')
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+          echo "${CONFIG}"
           INPUT_1='{ "config": "'
           INPUT_2=$CONFIG
           INPUT_3='"}'
