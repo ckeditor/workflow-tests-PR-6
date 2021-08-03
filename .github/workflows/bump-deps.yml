@@ -27,7 +27,7 @@ jobs:
           CONFIG=$(echo '${{ env.CONFIG }}' | jq '. += {"bump": "true"}')
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
           echo "${{ env.CONFIG }}"
-          echo "{ \"config\": \"${{ env.CONFIG }}\" }"
+          echo "{ \"config\": \"${env.CONFIG}\" }"
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
