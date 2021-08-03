@@ -38,4 +38,4 @@ jobs:
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: ${INPUT_ALL}
+          inputs: ${{ INPUT_ALL }}
