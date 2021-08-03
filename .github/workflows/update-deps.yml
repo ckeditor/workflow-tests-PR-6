@@ -66,6 +66,8 @@ jobs:
 
       - name: Check if update branch already exists
         run: |
+          echo "deps bump method: "
+          echo "${{DEPS_BUMP_METHOD}}"
           echo "BRANCH_UPDATE=deps-${{ env.DEPS_BUMP_METHOD}}_${{ env.BRANCH_TARGET }}_${{ matrix.deps }}" >> $GITHUB_ENV
           if [[ $(git ls-remote --heads | grep deps-update_${{ env.BRANCH_TARGET }}_${{ matrix.deps }} | wc -c) -ne 0 ]]; then
             echo "BRANCH_UPDATE=0" >> $GITHUB_ENV
