@@ -33,9 +33,10 @@ jobs:
           INPUT_ALL="${INPUT_1} ${INPUT_2} ${INPUT_3}"
           echo "input all below: "
           echo "${INPUT_ALL}"
+          echo "INPUT_ALL=$INPUT_ALL" >> $GITHUB_ENV
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: Update NPM dependencies
           token: ${{ secrets.GH_WORKFLOWS_TOKEN }}
-          inputs: ${{ INPUT_ALL }}
+          inputs: ${{ env.INPUT_ALL }}
