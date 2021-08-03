@@ -32,7 +32,7 @@ jobs:
           INPUT_3='"}'
           INPUT_ALL="${INPUT_1} ${INPUT_2} ${INPUT_3}"
           # echo "input all below: "
-          # echo "${INPUT_ALL}"
+          echo "${INPUT_ALL}"
           # echo "INPUT_ALL=$INPUT_ALL" >> $GITHUB_ENV
       - name: Invoke workflow with inputs
         uses: benc-uk/workflow-dispatch@v1
