@@ -31,12 +31,12 @@ jobs:
 
       - name: Read config
         run: |
+          npm i -g npm@7
+          npm -v
           CONFIG='{}'
-           if [[ ! -z '${{ github.event.inputs.config }}' ]]; then
-            echo "there is input cfg"
+          if [[ ! -z '${{ github.event.inputs.config }}' ]]; then
             CONFIG='${{ github.event.inputs.config }}'
           elif [[ -f "./.github/workflows-config.json" ]]; then
-            echo "there is json"
             CONFIG=$( jq -c .updateDeps './.github/workflows-config.json' )
           fi
           echo "CONFIG=$CONFIG" >> $GITHUB_ENV
@@ -59,22 +59,9 @@ jobs:
           fi
           echo "BRANCH_TARGET=$BRANCH_TARGET" >> $GITHUB_ENV
 
-          SHOULD_BUMP=$(echo '${{ env.CONFIG }}' | jq -r ".bump")
-          echo "bump:"
-          echo "$SHOULD_BUMP"
-
-          if [[ "$SHOULD_BUMP" == "true" ]]; then
-            echo "DEPS_BUMP_METHOD=npm-check" >> $GITHUB_ENV
-          else
-            echo "DEPS_BUMP_METHOD=npm_update" >> $GITHUB_ENV
-          fi
-
       - name: Check if update branch already exists
         run: |
-          echo "deps bump method: "
-          echo "${{ env.DEPS_BUMP_METHOD }}"
-
-          echo "BRANCH_UPDATE=deps-${{ env.DEPS_BUMP_METHOD}}_${{ env.BRANCH_TARGET }}_${{ matrix.deps }}" >> $GITHUB_ENV
+          echo "BRANCH_UPDATE=deps-update_${{ env.BRANCH_TARGET }}_${{ matrix.deps }}" >> $GITHUB_ENV
           if [[ $(git ls-remote --heads | grep deps-update_${{ env.BRANCH_TARGET }}_${{ matrix.deps }} | wc -c) -ne 0 ]]; then
             echo "BRANCH_UPDATE=0" >> $GITHUB_ENV
           fi
@@ -82,22 +69,10 @@ jobs:
       - name: Update NPM dependencies
         if: env.BRANCH_UPDATE != 0
         run: |
-          if [[ ! -f "./package.json" ]]; then
-            echo "'package.json' file not found, with nothing to update the workflow ends here."
-            exit 0
-          fi
-
-          if [[ "${{ env.DEPS_BUMP_METHOD }}" == "npm_update" ]]; then
-            echo "Just npm update today!"
-            git checkout -b ${{ env.BRANCH_UPDATE }}
-            npm update
-          else
-            echo "Running npm-check!"
-            npm i
-            npm install -g npm-check
-            git checkout -b ${{ env.BRANCH_UPDATE }}
-            npm-check -y --${{ matrix.deps }}
-          fi
+          npm i
+          npm install -g npm-check
+          git checkout -b ${{ env.BRANCH_UPDATE }}
+          npm-check -y --${{ matrix.deps }}
 
       - name: Add changes
         if: env.BRANCH_UPDATE != 0
