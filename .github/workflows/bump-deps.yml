@@ -1,4 +1,4 @@
-name: Bump dependencies
+name: Update NPM dependencies(to newest)
 on:
   schedule:
     - cron: "0 0 1 * *"
